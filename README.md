@@ -1,4 +1,4 @@
 - 👋 Hi, I’m @floretcl
 - 👀 I’m interested in iOS Development, UIkit & SwiftUI but also Python.
-- 🌱 I’m currently learning API use with Swift
+- 🌱 I’m currently learning API use, Combine and MVVM with SwiftUI
 - 📫 How to reach me floretcl@outlook.com
