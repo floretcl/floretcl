@@ -1,4 +1,4 @@
 - 👋 Hi, I’m @floretcl
-- 👀 I’m interested in iOS Development, UIkit & SwiftUI and also Python.
+- 👀 I like iOS Development and Swift, i use UIkit & SwiftUI and i'm also interested by C, Objective-C and Python.
 - 🌱 I’m always learning more!
 - 📫 How to reach me floretcl@outlook.com
