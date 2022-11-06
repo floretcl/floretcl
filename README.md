@@ -1,4 +1,4 @@
 - 👋 Hi, I’m @floretcl
-- 👀 I like iOS Development and Swift, i use UIkit & SwiftUI.
+- 👀 I like web & mobile development.
 - 🌱 I’m always learning more!
 - 📫 How to reach me floretcl@outlook.com
