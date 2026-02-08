@@ -6,7 +6,7 @@
 # NOTES
 
 ## Commande CISCO IOS Routeur et Switch
-## 
+
 ### 1. MODES ET ACCÈS GÉNÉRAUX
 - enable : Accès mode privilégié (Prompt #).
 - configure terminal (ou conf t) : Mode configuration globale.
@@ -14,6 +14,7 @@
 - end (ou Ctrl+Z) : Retour direct au mode privilégié.
 - no [X]  : Désactive une configuration.
 - copy running-config startup-config (ou wr) : Sauvegarder en NVRAM.
+  
 ### 2. CONFIGURATION DE BASE & SÉCURITÉ
 #### Système et Identification
 - hostname [NOM] : Nommer l'équipement.
@@ -49,6 +50,7 @@
 - switchport mode trunk : Faire passer plusieurs VLAN sur un port (802.1Q).
 - interface vlan 1 puisip address [IP] [MASQUE] : IP de management du Switch.
 - ip default-gateway [IP PASSERELLE] : Passerelle par défaut du Switch.
+  
 ### 4. ROUTAGE ET SERVICES
 - ip route [IP_DEST] [MASQUE] [IP_PASSERELLE] : Route statique IPv4.
 - no ip http server : Désactiver l'interface web (sécurité).
@@ -58,6 +60,7 @@
 1. ip domain-name [NOM DE DOMAINE] : Défini un nom de domaine
 2. crypto key generate rsa general-keys modulus [1024/2048] : Définin une clé de chiffrement SSH
 3. line vty  puis login local puis transport input ssh.
+   
 ### 5. VÉRIFICATION ET DIAGNOSTIC (SHOW)
 #### États et Performances
 - show [ip/ipv6] interface brief : État résumé des ports (UP/DOWN) et IPs.
@@ -81,10 +84,10 @@
 - terminal monitor : Affiche les logs/debugs sur une session distante (SSH/Telnet).
 - terminal no monitor : Désactive l'affichage des logs/debugs.
 
-## CONFIGURATION COMPLÈTE : ROUTEUR CISCO
+### CONFIGURATION COMPLÈTE : ROUTEUR CISCO
 #### 1. Sécurisation et Accès
-Cisco CLI
-```enable
+```
+enable
 configure terminal
 hostname R1
 no ip domain-lookup                 ! Évite les blocages sur erreurs de frappe
@@ -94,8 +97,8 @@ banner motd #ACCES PRIVE - R1#      ! Message d'avertissement
 
 ```
 #### 2. Configuration SSH
-Cisco CLI
-```ip domain-name lab.local            ! Requis pour générer les clés
+```
+ip domain-name lab.local            ! Requis pour générer les clés
 crypto key generate rsa             ! Choisir 2048 bits
 username admin secret cisco         ! Utilisateur local pour SSH
 line vty 0 4                        ! Accès à distance
@@ -106,8 +109,8 @@ exit
 
 ```
 #### 3. Interfaces et Routage (IPv4/IPv6)
-Cisco CLI
-```ipv6 unicast-routing                ! Activer le routage IPv6 globalement
+```
+ipv6 unicast-routing                ! Activer le routage IPv6 globalement
 interface GigabitEthernet0/0/0
  description LIEN_LAN
  ip address 192.168.1.254 255.255.255.0
@@ -120,11 +123,11 @@ exit
 ip route 0.0.0.0 0.0.0.0 [IP_SUIVANT]
 
 ```
-## CONFIGURATION COMPLÈTE : SWITCH CISCO
 
+### CONFIGURATION COMPLÈTE : SWITCH CISCO
 #### 1. Sécurité de base
-Cisco CLI
-```enable
+```
+enable
 configure terminal
 hostname SW1
 enable secret class
@@ -134,8 +137,8 @@ exit
 
 ```
 #### 2. Gestion des VLANs
-Cisco CLI
-```vlan 10
+```
+vlan 10
  name COMPTA
 vlan 20
  name INFORMATIQUE
@@ -143,8 +146,8 @@ exit
 
 ```
 #### 3. Assignation des Ports
-Cisco CLI
-```! Ports d'accès (Ordinateurs, Imprimantes)
+```
+! Ports d'accès (Ordinateurs, Imprimantes)
 interface range fastEthernet 0/1-10
  switchport mode access
  switchport access vlan 10
@@ -157,8 +160,8 @@ interface fastEthernet 0/24
 
 ```
 #### 4. Adresse de Management (SVI)
-Cisco CLI
-```! Permet de prendre la main sur le switch à distance via son IP
+```
+! Permet de prendre la main sur le switch à distance via son IP
 interface vlan 1
  ip address 192.168.1.10 255.255.255.0
  no shutdown
@@ -168,7 +171,8 @@ ip default-gateway 192.168.1.254    ! Passerelle pour joindre le switch hors du 
 ```
 
 
-## WINDOWS : COMMANDES ET POWERSHELL 
+## OS WINDOWS : COMMANDES ET POWERSHELL 
+
 ### 1. LIGNE DE COMMANDE (CMD)
 #### Réseau et Connectivité
 - ipconfig /all : Configuration complète (MAC, DNS, DHCP).
@@ -186,6 +190,7 @@ ip default-gateway 192.168.1.254    ! Passerelle pour joindre le switch hors du 
 - gpresult /r : Affiche le résumé des GPO appliquées (RSOP).
 - sfc /scannow : Analyse et répare l'intégrité des fichiers système.
 - net user [user] /domain : Vérifie les informations d'un compte dans l'AD.
+
 ### 2. POWERSHELL : ESSENTIELS & SYSTÈME
 #### Gestion de l'exécution et Scripts
 - Get-ExecutionPolicy : Voir le niveau de sécurité des scripts.
@@ -205,6 +210,7 @@ ip default-gateway 192.168.1.254    ! Passerelle pour joindre le switch hors du 
 - Test-NetConnection -ComputerName [IP] -Port [N] : Vérifie l'ouverture d'un port (TNC).
 - ConvertTo-HTML :
 	- Exemple : Get-Process | Select-Object Name, Status | ConvertTo-HTML > C:\processes.html (Génère un rapport web des processus).
+   
 ### 3. ADMINISTRATION ACTIVE DIRECTORY (Module RSAT)
 #### Gestion des Utilisateurs
 - Get-ADUser -Identity [Login] -Properties * : Détails complets d'un utilisateur.
@@ -219,6 +225,7 @@ ip default-gateway 192.168.1.254    ! Passerelle pour joindre le switch hors du 
 - Get-ADGroupMember -Identity "[Groupe]" : Lister les membres d'un groupe.
 - Get-ADOrganizationalUnit -Filter * : Lister toutes les Unités d'Organisation.
 - Get-ADComputer -Filter * : Lister les ordinateurs du domaine.
+  
 ### 4. LOGIQUE POWERSHELL : PIPES ET FILTRES
 PowerShell traite des objets et non du texte simple. On utilise le symbole | pour passer l'objet à la commande suivante.
 - Le Filtre ( Where-Object) :
@@ -227,6 +234,132 @@ PowerShell traite des objets et non du texte simple. On utilise le symbole | pou
 	- Get-ADUser -Filter * | Select-Object Name, SamAccountName (Affiche uniquement deux colonnes).
 - Le Tri ( Sort-Object) :
 	- Get-Process | Sort-Object CPU -Descending (Classe par consommation CPU).
+   
 ### 5. OUTILS GPO & DIAGNOSTIC AVANCÉ
 - gpresult /h report.html : Génère un rapport HTML détaillé des GPO (très visuel).
 - rsop.msc : Console graphique du "Jeu de stratégie résultant".
+
+### 6. RÉSEAU & INTEROPÉRABILITÉ
+- Infos IP : ipconfig /all
+- Passerelle : route print
+- Libérer DHCP : ipconfig /release
+- Renouveler DHCP : ipconfig /renew
+- DNS : nslookup
+- Route : tracert
+- Ports ouverts : netstat -an
+- Test port TCP : tnc [IP] -p [Port] (PS)
+
+
+## COMMANDES SYSTÈME UNIX / LINUX - BASH
+
+### 1. SYSTÈME UNIX / LINUX & BASH
+#### Commandes de Base
+- echo $SHELL : Obtenir le shell actuel.
+- whoami / id : Nom d'utilisateur courant / Détails (UID, GID).
+- cd : Changer de répertoire ( ~ : home, .. : parent, - : précédent).
+- ls -al : Lister tout (fichiers cachés + détails).
+- touch / mkdir : Créer un fichier vide / un répertoire.
+- rm -ri : Supprimer (récursif + confirmation).
+- more / tail -f : Lire un fichier / Suivre les logs en temps réel.
+- grep [chaîne] [fichier] : Rechercher un texte.
+- find [nom] : Rechercher un fichier/dossier.
+- ps aux / kill [PID] : Lister / Stopper les processus.
+#### Compression (Tar)
+- tar -cvzf output.tar.gz input : Compresser (c: create, z: gzip).
+- tar -xvzf archive.tar.gz : Extraire (x: extract).
+#### Gestion des Utilisateurs et Groupes
+- su - : Passer en root.
+- sudo useradd -m [user] : Créer utilisateur + home.
+- sudo passwd [user] : Définir/Changer le mot de passe.
+- sudo groupadd [groupe] / sudo usermod -aG [groupe] [user] : Gérer les groupes.
+- getent group [groupe] : Lister les membres d'un groupe.
+- sudo userdel [user] : Supprimer un utilisateur.
+- sudo visudo : Seule méthode sûre pour modifier /etc/sudoers.
+#### Permissions et Droits
+- Octal : r=4, w=2, x=1 (7=rwx, 5=rx).
+- chmod [droits] [fichier] : Modifier permissions (ex: 755 ou u+rwx).
+- chown [user]:[group] [fichier] : Modifier propriétaire et groupe.
+- Bits spéciaux :
+	- s (setuid/gid) : Exécute avec droits propriétaire.
+	- t (sticky bit) : Seul le propriétaire peut supprimer son fichier dans un dossier commun.
+- Umask : Droits par défaut.
+	- Calcul : 777 (rép) ou 666 (fichier) - Valeur Umask.
+	- Ex: umask 022 -> Rép: 755 / Fich: 644.
+   
+### 2. SCRIPTING BASH & AUTOMATISATION
+#### Caractères Spéciaux & Logique
+- ; : Séparateur de commandes.
+- | : Pipe (Résultat A devient entrée de B).
+- && : Exécute B si A réussit.
+- || : Exécute B si A échoue.
+#### Variables et Fonctions
+- Déclaration : nom=valeur (pas d'espace).
+- Commande : var=$(commande).
+- Utilisation : $var.
+- Fonction : function nom { commandes; }.
+#### Structures de Contrôle
+- Condition :
+	- If
+		```
+	 	if [ condition ]; then
+	 	  # actions
+		elif [ cond2 ]; then
+	      # actions
+		else
+	      # actions
+		fi
+		```
+- Boucles :
+	- For
+		```
+	 	for i in $liste; do
+	 	...
+	 	done
+	 	```
+ 	- While
+		```
+	  	while [ condition ]; do
+	 	...
+	 	done
+	 	```
+ 	- Do while
+	 	```
+		until [ condition ]; do
+	   	...
+	  	done
+	  	```
+- Case :
+	  ```
+	  case $val in
+	  cas1) action;;
+	  cas2) action;;
+	  esac
+	  ```
+  
+#### Automatisation (CRONTAB)
+- crontab -e : Modifier | -l : Lister | -r : Supprimer.
+- Syntaxe : mm hh jj MMM JJJ tâche (> log)
+	- mm : minutes (00-59).
+	- hh : heures (00-23) .
+	- jj : jour du mois (01-31).
+	- MMM : mois (01-12 ou abréviation anglaise sur trois lettres : jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec).
+	- JJJ : jour de la semaine (1-7 ou abréviation anglaise sur trois lettres : mon, tue, wed, thu, fri, sat, sun).
+	- * : Toutes les valeurs
+  	- - : Plage de valeurs (1-5 : Plage de lundi à venredi)
+  	- , : séparateur de valeurs (2,7 : Le mardi et le dimanche par exemple)
+  	- / : ignore des séquences de valeurs (*/15 : Toutes les 15 min par exemple)
+
+### 3. RÉSEAU & INTEROPÉRABILITÉ
+			
+- Infos IP : ip a
+- Passerelle : ip route
+- Libérer DHCP : sudo dhclient -r
+- Renouveler DHCP : sudo dhclient
+- DNS : dig ou host
+- Route : traceroute
+- Ports ouverts : ss -tunlp
+- Test port TCP : nc -zv [IP] [Port]		
+- Cache ARP : arp -a | arp -d (Suppression).
+- Scan DHCP : sudo nmap --script broadcast-dhcp-discover -e [interface].
+
+
