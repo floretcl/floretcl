@@ -176,6 +176,8 @@ ip default-gateway 192.168.1.254    ! Passerelle pour joindre le switch hors du 
 ### 1. LIGNE DE COMMANDE (CMD)
 #### Réseau et Connectivité
 - ipconfig /all : Configuration complète (MAC, DNS, DHCP).
+- ipconfig /flushdns : Purger le cache DNS
+- ipconfig /registerdns : Rafraîchit toutes les inscriptions DHCP et réenregistre les noms DNS
 - ipconfig /displaydns : Affiche les entrées DNS mises en cache.
 - ipconfig /release : Réinitialise (libère) l'adresse IP actuelle.
 - ipconfig /renew : Demande une nouvelle adresse IP au serveur DHCP.
