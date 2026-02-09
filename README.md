@@ -302,41 +302,41 @@ PowerShell traite des objets et non du texte simple. On utilise le symbole | pou
 #### Structures de Contrôle
 - Condition :
 	- If
-		```
-	 	if [ condition ]; then
-	 	  # actions
-		elif [ cond2 ]; then
-	      # actions
-		else
-	      # actions
-		fi
-		```
+	```
+	if [ condition ]; then
+	  # actions
+	elif [ cond2 ]; then
+	  # actions
+	else
+	  # actions
+	fi
+	```
 - Boucles :
 	- For
-		```
-	 	for i in $liste; do
-	 	...
-	 	done
-	 	```
+	```
+	for i in $liste; do
+	...
+	done
+	```
  	- While
-		```
-	  	while [ condition ]; do
-	 	...
-	 	done
-	 	```
+	```
+	while [ condition ]; do
+	...
+	done
+	```
  	- Do while
-	 	```
-		until [ condition ]; do
-	   	...
-	  	done
-	  	```
+	```
+	until [ condition ]; do
+	...
+	done
+	```
 - Case :
-	  ```
-	  case $val in
-	  cas1) action;;
-	  cas2) action;;
-	  esac
-	  ```
+  ```
+  case $val in
+  cas1) action;;
+  cas2) action;;
+  esac
+  ```
   
 #### Automatisation (CRONTAB)
 - crontab -e : Modifier | -l : Lister | -r : Supprimer.
